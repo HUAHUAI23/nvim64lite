@@ -86,6 +86,8 @@ local M = {
 		NvimTreeToggle = "<space>f",
 	},
 	lsp = {
+		-- treesitter rename
+    tsRename='ra',
 		rename = "rn",
 		code_action = "ca",
 		definition = "gd",
