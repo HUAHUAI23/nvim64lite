@@ -96,6 +96,7 @@ local function load_plugins()
 			})
 			-- neocroll.nvim
 			use("karb94/neoscroll.nvim")
+
 			-- log highlight
 			use("mtdl9/vim-log-highlighting")
 
@@ -167,6 +168,9 @@ local function load_plugins()
 	})
 end
 
+-- 加载配色
+require("colorscheme")
+
 if vim.fn.isdirectory(install_path) == 0 then
 	vim.fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
 	load_plugins()
@@ -174,9 +178,6 @@ if vim.fn.isdirectory(install_path) == 0 then
 else
 	load_plugins()
 end
-
--- 加载配色
-require("colorscheme")
 
 local config_path_root = vim.env.VIM
 -- 通过vim.cmd加载一些 vimscript commands
