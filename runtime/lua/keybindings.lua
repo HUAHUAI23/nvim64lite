@@ -304,4 +304,64 @@ pluginKeys.mapToggleTerm = function(toggleterm)
 	vim.keymap.set({ "n", "t" }, toggletermm.toggleC, toggleterm.toggleC)
 end
 
+-- gitsigns
+-- gitsigns
+pluginKeys.gitsigns_on_attach = function(bufnr)
+	local gitsignss = require("keybindingAlias").gitsigns
+	local gs = package.loaded.gitsigns
+
+	local function map(mode, l, r, opts)
+		opts = opts or {}
+		opts.buffer = bufnr
+		vim.keymap.set(mode, l, r, opts)
+	end
+
+	-- Navigation
+	map("n", gitsignss.gs_next_hunk, function()
+		if vim.wo.diff then
+			return "<leader>gj"
+		end
+		vim.schedule(function()
+			gs.next_hunk()
+		end)
+		return "<Ignore>"
+	end, { expr = true })
+
+	map("n", gitsignss.gs_pre_hunk, function()
+		if vim.wo.diff then
+			return "<leader>gk"
+		end
+		vim.schedule(function()
+			gs.prev_hunk()
+		end)
+		return "<Ignore>"
+	end, { expr = true })
+
+	-- Actions
+	map({ "n", "v" }, gitsignss.stage_hunk, ":Gitsigns stage_hunk<CR>")
+	map({ "n", "v" }, gitsignss.reset_hunk, ":Gitsigns reset_hunk<CR>")
+	map("n", gitsignss.stage_buffer, gs.stage_buffer)
+	map("n", gitsignss.undo_stage_hunk, gs.undo_stage_hunk)
+	map("n", gitsignss.reset_buffer, gs.reset_buffer)
+	map("n", gitsignss.preview_hunk, gs.preview_hunk)
+	map("n", gitsignss.blame_line, function()
+		gs.blame_line({ full = true })
+	end)
+	map("n", gitsignss.diffthis, gs.diffthis)
+	map("n", gitsignss.diffthiss, function()
+		gs.diffthis("~")
+	end)
+	-- toggle
+	map("n", gitsignss.toggle_current_line_blame, gs.toggle_current_line_blame)
+	map("n", gitsignss.toggle_deleted, gs.toggle_deleted)
+
+	-- Text object
+	map({ "o", "x" }, gitsignss.select_hunk, ":<C-U>Gitsigns select_hunk<CR>")
+end
+
+-- yanky
+local yankyy = require("keybindingAlias").yanky
+vim.keymap.set({ "n", "x" }, yankyy.yanky_after, "<Plug>(YankyPutAfter)")
+vim.keymap.set({ "n", "x" }, yankyy.yanky_before, "<Plug>(YankyPutBefore)")
+
 return pluginKeys

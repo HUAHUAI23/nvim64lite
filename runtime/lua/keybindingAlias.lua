@@ -87,7 +87,7 @@ local M = {
 	},
 	lsp = {
 		-- treesitter rename
-    tsRename='ra',
+		tsRename = "ra",
 		rename = "rn",
 		code_action = "ca",
 		definition = "gd",
@@ -136,6 +136,26 @@ local M = {
 		toggleA = "<leader>ta",
 		toggleB = "<leader>tb",
 		toggleC = "<leader>tc",
+	},
+	gitsigns = {
+		gs_next_hunk = "<leader>gj",
+		gs_pre_hunk = "<leader>gk",
+		stage_hunk = "<leader>gs",
+		reset_hunk = "<leader>gr",
+		stage_buffer = "<leader>gS",
+		undo_stage_hunk = "<leader>gu",
+		reset_buffer = "<leader>gR",
+		preview_hunk = "<leader>gp",
+		blame_line = "<leader>gb",
+		diffthis = "<leader>gd",
+		diffthiss = "<leader>gD",
+		toggle_current_line_blame = "<leader>gtb",
+		toggle_deleted = "<leader>gtd",
+		select_hunk = "ig",
+	},
+	yanky = {
+		yanky_after = "p",
+		yanky_before = "P",
 	},
 }
 
