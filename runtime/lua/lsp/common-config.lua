@@ -19,6 +19,7 @@ M.shwLinDiaAtom = function(bufnr)
 				close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
 				border = "rounded",
 				source = "always",
+				-- prefix = "🔮 ",
 				prefix = "🔔 ",
 				scope = "cursor",
 			}
@@ -57,19 +58,15 @@ M.hlSymUdrCursor = function(client, bufnr)
 end
 
 --  plugin cmp need this
-M.capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+M.capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- lsp keybinding
 M.keyAttach = function(bufnr)
-	local function buf_set_keymap(mode, lhs, rhs)
-		vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true, buffer = bufnr })
-	end
-
 	-- 绑定快捷键
-	require("keybindings").mapLSP(buf_set_keymap)
+	require("keybindings").pluginKeys.mapLSP(bufnr)
 end
 
--- 禁用格式化功能，交给专门插件插件处理
+-- 禁用lsp格式化功能，交给专门插件处理
 M.disableFormat = function(client)
 	if vim.fn.has("nvim-0.8") == 1 then
 		client.server_capabilities.documentFormattingProvider = false
@@ -79,5 +76,64 @@ M.disableFormat = function(client)
 		client.resolved_capabilities.document_range_formatting = false
 	end
 end
+
+M.navic = require("nvim-navic")
+--
+-----winbar And navic
+--
+-- local ignore_filetype = {
+-- 	"",
+-- 	"dap-repl",
+-- 	"markdown",
+-- }
+M.navic.setup({
+	-- icons = {
+	-- 	File = " ",
+	-- 	Module = " ",
+	-- 	Namespace = " ",
+	-- 	Package = " ",
+	-- 	Class = " ",
+	-- 	Method = " ",
+	-- 	Property = " ",
+	-- 	Field = " ",
+	-- 	Constructor = " ",
+	-- 	Enum = "練",
+	-- 	Interface = "練",
+	-- 	Function = " ",
+	-- 	Variable = " ",
+	-- 	Constant = " ",
+	-- 	String = " ",
+	-- 	Number = " ",
+	-- 	Boolean = "◩ ",
+	-- 	Array = " ",
+	-- 	Object = " ",
+	-- 	Key = " ",
+	-- 	Null = "ﳠ ",
+	-- 	EnumMember = " ",
+	-- 	Struct = " ",
+	-- 	Event = " ",
+	-- 	Operator = " ",
+	-- 	TypeParameter = " ",
+	-- },
+	highlight = true,
+})
+
+-- local function load_navic()
+-- 	vim.api.nvim_create_autocmd(
+-- 		{ "DirChanged", "CursorMoved", "BufWinEnter", "BufFilePost", "InsertEnter", "BufNewFile" },
+-- 		{
+-- 			callback = function()
+-- 				if not vim.bo.buflisted or vim.tbl_contains(ignore_filetype, vim.bo.filetype) then
+-- 					vim.opt_local.winbar = ""
+-- 					return
+-- 				end
+-- 				vim.opt_local.winbar = "%{%v:lua.require('nvim-navic').get_location()%}"
+-- 			end,
+-- 		}
+-- 	)
+-- end
+-- load_navic()
+
+M.winbarrs = "%{%v:lua.require('nvim-navic').get_location()%}"
 
 return M

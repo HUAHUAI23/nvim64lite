@@ -4,7 +4,7 @@ if not status then
 	return
 end
 -- bfferline 配置
--- https://github.com/akinsho/bufferline.nvim#configuration
+-- https://github.com/akinsho/bufferline.nvim/blob/main/doc/bufferline.txt
 bufferline.setup({
 	options = {
 		middle_mouse_command = function()
@@ -13,6 +13,10 @@ bufferline.setup({
 			end)
 		end,
 		-- numbers = "buffer_id",
+		-- indicator = {
+		-- 	style = "icon",
+		-- },
+		-- color_icons = false,
 		diagnostics = "nvim_lsp",
 		diagnostics_indicator = function(count, level, diagnostics_dict, context)
 			-- -- current buffer don't show LSP indicators
@@ -40,11 +44,23 @@ bufferline.setup({
 				text = "👾outline",
 				text_align = "right",
 			},
+			{
+				filetype = "undotree",
+				text = "👾undo Tree",
+				text_align = "left",
+			},
 		},
+		-- hover = {
+		-- 	enabled = true,
+		-- 	delay = 200,
+		-- 	reveal = { "close" },
+		-- },
+
+		-- see more: https://github.com/akinsho/bufferline.nvim/blob/main/doc/bufferline.txt
+		-- highlights = {
+		-- 	buffer_visible = {
+		-- 		fg = "#ebdbb2",
+		-- 	},
+		-- },
 	},
-	-- highlights = {
-	-- 	buffer_visible = {
-	-- 		fg = "#ebdbb2",
-	-- 	},
-	-- },
 })

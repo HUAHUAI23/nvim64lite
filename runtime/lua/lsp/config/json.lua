@@ -10,6 +10,11 @@ local opts = {
 		-- lspComm.disableFormat(client)
 	end,
 	handlers = require("lsp.common-config").handlers,
+	settings = {
+		json = {
+			schemas = require("schemastore").json.schemas(),
+		},
+	},
 }
 return {
 	on_setup = function(server)

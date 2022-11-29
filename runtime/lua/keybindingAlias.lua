@@ -10,11 +10,13 @@ local M = {
 	--   command_mode = "c",
 	--   select_mode = "s"
 
+	-- 前导键
+	leader_key = ";",
 	-- normal模式下键盘映射
 	norl = {
-		-- 前导键
-		leader_key = ";",
+
 		goto_command_mode = "<F1>",
+		undo = "<leader>u",
 
 		go_left35 = "H",
 		go_right35 = "L",
@@ -22,16 +24,16 @@ local M = {
 		-- -- 粘贴模式可以防止从网页复制内容到vim而出现奇怪的缩进问题
 		-- 因为vim的缩减处理和一般文本编辑器不一样
 		goto_paste_mode = "sp",
-		exit_paste_mode = "P",
+		exit_paste_mode = "sP",
 		-- cursor move in normal mode
 		go_up_10line = "<C-u>",
 		go_down_10line = "<C-d>",
 		go_up_5line = "<C-k>",
 		go_down_5line = "<C-j>",
-		-- save exit and exit all
+		-- save exit and exit all  buffer behavior
 		quit_buffer = "qq",
 		quit_window = "<Leader>q",
-		save_window = "<Leader>w",
+		save_buffer = "<Leader>w",
 		saveALL_and_exitALL = "<Leader>WQ",
 		quit_without_save = "<Leader>Q",
 		-- window split
@@ -57,9 +59,12 @@ local M = {
 	},
 	-- visual 模式下键盘映射
 	visul = {
+		-- goto command mode from visual mode
+		goto_command_mode = "<F1>",
 		-- cursor move in visual mode
 		go_up_5line = "<C-k>",
 		go_down_5line = "<C-j>",
+		cp_to_sysClipboard = "Y",
 	},
 	-- command 模式下键盘映射
 	cmand = {
@@ -79,25 +84,35 @@ local M = {
 		window_down = "s<down>",
 		window_up = "s<up>",
 		window_right = "s<right>",
+		-- go to command mode
+		goto_command_mode = "<F1>",
 	},
 	------------------------------------------
 	--插件键位映射
 	nvimTree = {
-		NvimTreeToggle = "<space>f",
+		NvimTreeToggle = "<space>1",
+	},
+	undotree = {
+		UndotreeToggle = "<space>2",
 	},
 	lsp = {
-		-- treesitter rename
+		--treesitter rename
 		tsRename = "ra",
 		rename = "rn",
 		code_action = "ca",
 		definition = "gd",
 		hover = "gh",
 		references = "gr",
+		signature_help = "<leader>gh",
+		type_definitions = "<leader>gl",
+		implementations = "<leader>gi",
 		-- diagnostic
 		open_flow = "gl",
 		goto_next = "gj",
 		goto_prev = "gk",
 		format = "<leader>f",
+		-- outline
+		LSoutline = "<space>3",
 	},
 	bufferline = {
 		BufferLineCyclePrev = "<Leader>j",
@@ -106,18 +121,11 @@ local M = {
 		BufferLineMoveNext = "<Leader>l",
 	},
 	telescope = {
-		find_files = "<C-f>",
-		find_files_insertmode = "<C-f>",
-	},
-	dap = {
-		debugg = "<F5>",
-		debugg_step_over = "<F6>",
-		debugg_end = "<space>w",
-		clear_breakpoints = "<space>T",
-		toggle_breakpoint = "<space>t",
-		-- dapUI
-		eval_expression = "<space>h",
-		eval_expression_visual = "<Leader><Leader>",
+		fuzzy_find = "<C-f>",
+		fuzzy_find_insertmode = "<C-f>",
+		find_files = "<space>4",
+		buffer_select = "<space>5",
+		session_load = "<space>s",
 	},
 	cmp = {
 		cmp_next = "<Tab>",
@@ -128,34 +136,38 @@ local M = {
 		cmp_select_prev_item = "<C-k>",
 		cmp_select_next_item = "<C-j>",
 		cmp_trigge = "<C-Space>",
-		cmp_abort = "<Space>e",
-
+		cmp_abort = "<leader>ee",
 		-- luasnip
+		luasnip_node_next = "<C-j>",
+		luasnip_node_prev = "<C-k>",
 	},
 	toggerterm = {
 		toggleA = "<leader>ta",
 		toggleB = "<leader>tb",
 		toggleC = "<leader>tc",
-	},
-	gitsigns = {
-		gs_next_hunk = "<leader>gj",
-		gs_pre_hunk = "<leader>gk",
-		stage_hunk = "<leader>gs",
-		reset_hunk = "<leader>gr",
-		stage_buffer = "<leader>gS",
-		undo_stage_hunk = "<leader>gu",
-		reset_buffer = "<leader>gR",
-		preview_hunk = "<leader>gp",
-		blame_line = "<leader>gb",
-		diffthis = "<leader>gd",
-		diffthiss = "<leader>gD",
-		toggle_current_line_blame = "<leader>gtb",
-		toggle_deleted = "<leader>gtd",
-		select_hunk = "ig",
+		toggleG = "<Leader>tg",
 	},
 	yanky = {
 		yanky_after = "p",
 		yanky_before = "P",
+		iopen_yank_history = "<leader>yy",
+		nopen_yank_history = "<leader>yy",
+	},
+	hop = {
+		ihop_word = "<leader>gg",
+		nhop_word = "<leader>gg",
+		ihop_line = "<leader>gv",
+		nhop_line = "<leader>gv",
+		ihop_pattern = "<leader>gb",
+	},
+	comment = {
+		iline_comment = [[<C-_>]],
+		vline_comment = [[<C-_>]],
+		nline_comment = [[<C-_>]],
+	},
+	switch = {
+		vmagicSearch = "on",
+		nmagicSearch = "on",
 	},
 }
 
