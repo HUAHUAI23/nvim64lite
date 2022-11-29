@@ -223,6 +223,9 @@ return require("packer").startup({
 			cmd = { "ColorizerToggle", "ColorizerAttachToBuffer", "ColorizerDetachFromBuffer" },
 		})
 
+		-- log hightlight
+		use("mtdl9/vim-log-highlighting")
+
 		-- something like lsp
 		-- ---------------------------------------------------------
 		-- TODO Comments
