@@ -263,8 +263,6 @@ return require("packer").startup({
 		use({ "LinArcX/telescope-env.nvim" })
 		-- Project need
 		use({ "nvim-telescope/telescope-project.nvim" })
-		-- telesocpe-dap
-		use("nvim-telescope/telescope-dap.nvim")
 		-- telescope-session
 		use("HUAHUAI23/telescope-session.nvim")
 		-- telescope-color
@@ -312,7 +310,6 @@ return require("packer").startup({
 		-- nvim-cmp
 		use("hrsh7th/nvim-cmp")
 		-- sources
-		use("rcarriga/cmp-dap")
 		use("hrsh7th/cmp-nvim-lsp")
 		use("hrsh7th/cmp-buffer")
 		use("hrsh7th/cmp-path")

@@ -34,8 +34,6 @@ pcall(telescope.load_extension, "fzf")
 pcall(telescope.load_extension, "env")
 -- extension telescope-project
 pcall(telescope.load_extension, "projects")
--- extension telescope-dap
-pcall(telescope.load_extension, "dap")
 -- extension telescope-session
 pcall(telescope.load_extension, "xray23")
 -- extension telescope-color

@@ -72,9 +72,7 @@ local source_mapping = {
 	buffer = "[Buffer]",
 	nvim_lsp = "[LSP]",
 	luasnip = "[LuaSnip]",
-	dap = "[DAP]",
 	path = "[Path]",
-	cmp_tabnine = "[TN]",
 }
 
 --cmp config
@@ -93,9 +91,7 @@ cmp.setup({
 	-- 			buffer = "[Buffer]",
 	-- 			nvim_lsp = "[LSP]",
 	-- 			luasnip = "[LuaSnip]",
-	-- 			dap = "[DAP]",
 	-- 			path = "[Path]",
-	-- 			cmp_tabnine = "[TN]",
 	-- 		})[entry.source.name]
 	-- 		return vim_item
 	-- 	end,
@@ -107,18 +103,8 @@ cmp.setup({
 			-- in the following line:
 			vim_item.kind = lspkind.symbolic(vim_item.kind, { mode = "symbol" })
 			vim_item.menu = source_mapping[entry.source.name]
-			if entry.source.name == "cmp_tabnine" then
-				local detail = (entry.completion_item.data or {}).detail
-				vim_item.kind = ""
-				if detail and detail:find(".*%%.*") then
-					vim_item.kind = vim_item.kind .. " " .. detail
-				end
-
-				if (entry.completion_item.data or {}).multiline then
-					vim_item.kind = vim_item.kind .. " " .. "[ML]"
-				end
-			end
 			local maxwidth = 80
+			--  the maxium length of the menu item, if it's longer than this, it will be truncated
 			vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
 			return vim_item
 		end,
@@ -141,8 +127,6 @@ cmp.setup({
 	-- sources
 	sources = cmp.config.sources({
 		{ name = "luasnip", group_index = 1 }, -- For luasnip users. If this is not set, LuaSnip's snippet will not be included in the completion list
-		-- tabnine
-		{ name = "cmp_tabnine", group_index = 1 },
 		{ name = "nvim_lsp", group_index = 1 },
 		{ name = "nvim_lsp_signature_help", group_index = 1 },
 		{
@@ -202,12 +186,6 @@ cmp.setup.cmdline(":", {
 		-- { name = 'cmdline', keyword_pattern = [[\!\@<!\w*]] }
 		{ name = "cmdline" },
 	}),
-})
-
-cmp.setup.filetype({ "dap-repl", "dapui_watches" }, {
-	sources = {
-		{ name = "dap" },
-	},
 })
 
 -- disable cmp for specify filetype
