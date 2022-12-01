@@ -72,6 +72,13 @@ treesitter.setup({
 			},
 		},
 	},
+	-- more powerful %
+	matchup = {
+		enable = true, -- mandatory, false will disable the whole extension
+		-- disable = { "c", "ruby" }, -- optional, list of language that will be disabled
+		disable = filesize_hundle,
+		-- [options]
+	},
 
 	-- https://github.com/windwp/nvim-ts-autotag
 	-- 方便前端语言标签的自动闭合
