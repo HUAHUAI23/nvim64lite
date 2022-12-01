@@ -15,7 +15,7 @@ how to use my lite version neovim: <https://github.com/HUAHUAI23/nvim64/blob/mai
 
 ## install
 
-1. method 1 download <https://github.com/HUAHUAI23/nvim64lite/releases/download/v1.0/nvim64.lite.packaged.tar.gz>
+1. method 1 download <https://github.com/HUAHUAI23/nvim64lite/releases/download/v2.0/nvim64.lite.tar.gz>
 
    ```plain
    tax -xf nvim64.lite.packaged.tar.gz
@@ -25,7 +25,7 @@ how to use my lite version neovim: <https://github.com/HUAHUAI23/nvim64/blob/mai
    # can also nvim64.lite/nvim-linux64/bin/nvim
    ```
 
-2. method 2 download <https://github.com/HUAHUAI23/nvim64lite/releases/download/v1.0/nvim64.lite.tar>
+2. method 2 download <https://github.com/HUAHUAI23/nvim64lite/releases/download/v2.0/nvim64.lite.tar>
 
    ```plain
    tar -xf nvim64.lite.tar
