@@ -22,7 +22,6 @@ mason_lspconfig.setup({
 		"bashls",
 		"pyright",
 		"sqls",
-		"jsonls",
 	},
 	automatic_installation = true,
 })
@@ -38,7 +37,6 @@ local servers = {
 	bashls = require("lsp.config.bash"),
 	pyright = require("lsp.config.pyright"),
 	sqls = require("lsp.config.sqls"),
-	jsonls = require("lsp.config.json"),
 }
 for name, config in pairs(servers) do
 	if config ~= nil and type(config) == "table" then

@@ -34,6 +34,7 @@ local sources = {
 	-- TODO: luacheck checkmake{make}
 	-- diagnostics.checkmake, markdownlint
 	-- diagnostics.pylint,  -- lsp_server pyright
+	diagnostics.jsonlint,
 	diagnostics.shellcheck,
 	diagnostics.yamllint,
 	diagnostics.hadolint,
