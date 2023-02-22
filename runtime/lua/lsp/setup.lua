@@ -33,6 +33,7 @@ if not status then
 	return
 end
 
+-- 使用neovim原生lspconfig进行language server配置
 local servers = {
 	bashls = require("lsp.config.bash"),
 	pyright = require("lsp.config.pyright"),

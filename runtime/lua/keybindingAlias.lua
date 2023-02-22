@@ -1,6 +1,4 @@
 local M = {
-	config_path = vim.fn.stdpath("config"),
-
 	-- Modes
 	--   normal_mode = "n",
 	--   insert_mode = "i",
@@ -10,8 +8,7 @@ local M = {
 	--   command_mode = "c",
 	--   select_mode = "s"
 
-	-- 前导键
-	-- leader_key = ";",
+	-- 前导键 空格 <space>
 	leader_key = " ",
 	-- normal模式下键盘映射
 	norl = {
@@ -53,11 +50,13 @@ local M = {
 		move_2left = "s,",
 		move_2right = "s.",
 		move_resize = "s=",
+		-- terminal split
+		term_horizontal_split = "st",
+		term_vertical_split = "stv",
 	},
 	-- insert 模式下键盘映射
 	insert = {
 		goto_command_mode = "<F1>",
-		goto_normal_mode = "<space>vv",
 	},
 	-- visual 模式下键盘映射
 	visul = {
@@ -73,21 +72,6 @@ local M = {
 		-- 命令补全下拉菜单中 上下选择
 		select_next = "<C-j>",
 		select_pre = "<C-k>",
-	},
-	-- terminal模式下键盘映射
-	term = {
-		-- terminal split
-		horizontal_split = "st",
-		vertical_split = "stv",
-		-- terminal mode to normal mode
-		term_to_normal = "<Esc>",
-		-- terminal window motion
-		window_left = "s<left>",
-		window_down = "s<down>",
-		window_up = "s<up>",
-		window_right = "s<right>",
-		-- go to command mode
-		goto_command_mode = "<F1>",
 	},
 	------------------------------------------
 	--插件键位映射
@@ -108,13 +92,16 @@ local M = {
 		signature_help = "<leader>gh",
 		type_definitions = "<leader>gl",
 		implementations = "<leader>gi",
+		declaration = "gD",
 		-- diagnostic
 		open_flow = "gl",
 		goto_next = "g<left>",
 		goto_prev = "g<right>",
 		format = "<leader>f",
+		-- TODO:
+		-- lsp_signature
 		-- outline
-		LSoutline = "<space>3",
+		outline = "<space>3",
 	},
 	bufferline = {
 		BufferLineCyclePrev = "<Leader>j",
@@ -129,18 +116,6 @@ local M = {
 		buffer_select = "<space>5",
 		session_load = "<space>s",
 	},
-	dap = {
-		debugg = "<F5>",
-		debugg_step_over = "<F6>",
-		-- if use ; switch to <space>
-		debugg_end = ";w",
-		clear_breakpoints = ";T",
-		-- if use ; switch to <space>
-		toggle_breakpoint = ";t",
-		-- dapUI
-		eval_expression = ";h",
-		eval_expression_visual = ";;",
-	},
 	cmp = {
 		cmp_next = "<Tab>",
 		cmp_pre = "<S-Tab>",
@@ -149,8 +124,9 @@ local M = {
 		cmp_scroll_doc_down = "<C-d>",
 		cmp_select_prev_item = "<C-k>",
 		cmp_select_next_item = "<C-j>",
-		cmp_trigge = "<C-Space>",
-		cmp_abort = "<space>e",
+		cmp_trigge = "<M-h>",
+		-- PERF:
+		cmp_abort = "<M-k>",
 		-- luasnip
 		luasnip_node_next = "<C-j>",
 		luasnip_node_prev = "<C-k>",
@@ -159,47 +135,27 @@ local M = {
 		toggleA = "<leader>ta",
 		toggleB = "<leader>tb",
 		toggleC = "<leader>tc",
+		toggleD = "<leader>td",
 		toggleG = "<Leader>tg",
 	},
-	gitsigns = {
-		gs_next_hunk = "<space>gj",
-		gs_pre_hunk = "<space>gk",
-		stage_hunk = "<leader>gs",
-		reset_hunk = "<leader>gr",
-		stage_buffer = "<leader>gS",
-		undo_stage_hunk = "<leader>gu",
-		reset_buffer = "<leader>gR",
-		preview_hunk = "<leader>gp",
-		blame_line = "<leader>gb",
-		diffthis = "<leader>gd",
-		diffthiss = "<leader>gD",
-		toggle_current_line_blame = "<leader>gtb",
-		toggle_deleted = "<leader>gtd",
-		select_hunk = "ig",
-	},
-	mkdnflow = {
-		enable = true,
-		mkdnDestroyLink = "md",
-		mkdnTagSpan = "md",
-		mkdnTablePrevRow = "<C-CR>",
-		mkdnToggleToDo = "mt",
-		mkdnFoldSection = "mz",
-		mkdnUnfoldSection = "<leader>mz",
-		mkdnTableNextCell = "<Leader>mj",
-		mkdnTablePrevCell = "<Leader>mk",
-	},
 	yanky = {
+
 		yanky_after = "<leader>p",
 		yanky_before = "P",
-		iopen_yank_history = "<leader>yy",
-		nopen_yank_history = "<leader>yy",
+		-- PERF:
+		iopen_yank_history = "<F3>",
+		nopen_yank_history = "<F3>",
+		--
 	},
 	hop = {
-		ihop_word = "<space>gg",
+		-- PERF:
+		-- <F7>,<F8>,<F9> <C-x> <space>gv
+		nhop_pattern = ";<space>",
 		nhop_word = "<space>gg",
-		ihop_line = "<space>gv",
-		nhop_line = "<space>gv",
-		ihop_pattern = "<space>gb",
+		nhop_line = ";;",
+		-- ihop_pattern = "<F8>",
+		-- ihop_line = "<F7>",
+		-- ihop_word = "<C-x>",
 	},
 	comment = {
 		iline_comment = [[<C-_>]],
@@ -207,8 +163,7 @@ local M = {
 		nline_comment = [[<C-_>]],
 	},
 	copilot = {
-		copilotAccept = "<space>cc",
-		copilotPanel = "<space>cv",
+		copilotAccept = "<M-j>",
 	},
 	switch = {
 		vmagicSearch = "on",
