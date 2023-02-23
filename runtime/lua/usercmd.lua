@@ -1,26 +1,5 @@
 local api = vim.api
 
--- TODO: add some description
---
--- local function setUndotreeWinSize()
--- 	local winList = api.nvim_list_wins()
--- 	for _, winHandle in ipairs(winList) do
--- 		if
--- 			api.nvim_win_is_valid(winHandle)
--- 			and api.nvim_buf_get_option(api.nvim_win_get_buf(winHandle), "filetype") == "undotree"
--- 		then
--- 			api.nvim_win_set_width(winHandle, vim.g.undotree_SplitWidth)
--- 		end
--- 	end
--- end
---
--- api.nvim_create_user_command("Ut", function()
--- 	api.nvim_cmd(api.nvim_parse_cmd("UndotreeToggle", {}), {})
--- 	setUndotreeWinSize()
--- end, { desc = "load undotree" })
-
--- TODO: add some description
---
 local ftAndCmandLeft = {
 	undotree = "UndotreeToggle",
 	NvimTree = "NvimTreeToggle",
@@ -41,10 +20,12 @@ local function leftSidebarAutoClose(ftAcmdLeft, currentSelfLeft)
 end
 
 api.nvim_create_user_command("Ut", function()
+	vim.api.nvim_cmd(api.nvim_parse_cmd("CloseAllterm", {}), {})
 	leftSidebarAutoClose(ftAndCmandLeft, "undotree")
 	vim.api.nvim_cmd(api.nvim_parse_cmd("UndotreeToggle", {}), {})
 end, { desc = "undotree enhanced" })
 api.nvim_create_user_command("NvimTrr", function()
+	vim.api.nvim_cmd(api.nvim_parse_cmd("CloseAllterm", {}), {})
 	leftSidebarAutoClose(ftAndCmandLeft, "NvimTree")
 	vim.api.nvim_cmd(api.nvim_parse_cmd("NvimTreeToggle", {}), {})
 end, { desc = "NvimTree enhanced" })

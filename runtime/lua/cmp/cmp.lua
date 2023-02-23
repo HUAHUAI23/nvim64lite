@@ -10,7 +10,6 @@ if not status then
 	vim.notify("没有找到 luasnip")
 	return
 end
-
 -- UI
 -- add icons for choice node
 local types = require("luasnip.util.types")
@@ -28,6 +27,8 @@ local mapping = require("keybindings").pluginKeys.cmp(luasnip, cmp)
 local keybindingAlias = require("keybindingAlias")
 
 local commConf = require("commConf")
+-- in large file not use treesitter
+-- TODO: add filetype check, not enable in specific filetype
 local ifEnable = function()
 	local context = require("cmp.config.context")
 	local max_filesize = commConf.largefileEdge -- 100 KB
@@ -90,6 +91,7 @@ local source_mapping = {
 
 --cmp config
 -- https://github.com/hrsh7th/nvim-cmp
+-- UI about cmp win
 local winhighlight = {
 	winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual",
 }
@@ -131,8 +133,10 @@ cmp.setup({
 		end,
 	},
 	window = {
+		-- floating window for completion menu
 		completion = cmp.config.window.bordered(winhighlight),
 		-- completion = cmp.config.window.bordered(),
+		-- floating window for documentation popup
 		documentation = cmp.config.window.bordered(winhighlight),
 	},
 	-- keybindings
@@ -140,6 +144,7 @@ cmp.setup({
 	-- sources
 	sources = cmp.config.sources({
 		{ name = "luasnip", group_index = 1 }, -- For luasnip users. If this is not set, LuaSnip's snippet will not be included in the completion list
+		-- lsp
 		{ name = "nvim_lsp", group_index = 1 },
 		{ name = "nvim_lsp_signature_help", group_index = 1 },
 		{
@@ -164,6 +169,7 @@ cmp.setup({
 cmp.setup.cmdline({ "/", "?" }, {
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = {
+		{ name = "nvim_lsp_document_symbol", group_index = 1 },
 		{
 			name = "buffer",
 			option = {
@@ -176,17 +182,10 @@ cmp.setup.cmdline({ "/", "?" }, {
 					return { buf }
 				end,
 			},
+			group_index = 2,
 		},
 	},
 })
---[[
-{
-    { name = 'path' }
-}, {
-    { name = 'cmdline' } 和group_index意思相同，上面的优先级越高，即path的优先级高于
-}                         cmdline，path源ok的话将优先匹配path
---]]
-
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(":", {
 	mapping = cmp.mapping.preset.cmdline(),
@@ -201,7 +200,7 @@ cmp.setup.cmdline(":", {
 	}),
 })
 
--- disable cmp for specify filetype
+-- NOTE: disable cmp for specify filetype
 cmp.setup.filetype({ "TelescopePrompt", "text", "" }, {
 	enabled = false,
 })
@@ -211,7 +210,8 @@ cmp.setup.filetype({ "TelescopePrompt", "text", "" }, {
 -- custom snippets
 -- https://github.com/rafamadriz/friendly-snippets
 require("luasnip.loaders.from_vscode").lazy_load()
-local config_path = require("commConf").sharePath
+
+local config_path = commConf.sharePath
 
 -- load snippets from path/of/your/nvim/config/my-cool-snippets
 -- require("luasnip.loaders.from_vscode").lazy_load({ paths = { config_path .. "/xray23/lua/cmp/snippets/vscode" } })
