@@ -1,6 +1,4 @@
 local commConf = require("commConf")
-local api = vim.api
-local loop = vim.loop
 local status, null_ls = pcall(require, "null-ls")
 if not status then
 	vim.notify("没有找到 null-ls")
@@ -38,21 +36,16 @@ local sources = {
 	hover.dictionary,
 }
 
-local augroup = api.nvim_create_augroup("LspFormatting", { clear = false })
 local function lsp_formatting(bufnr)
-	local max_filesize = commConf.autoformatEdge -- 100 KB
-	local ok, stats = pcall(loop.fs_stat, api.nvim_buf_get_name(bufnr))
-	if ok and stats and stats.size < max_filesize then
-		vim.lsp.buf.format({
-			filter = function(client)
-				-- apply whatever logic you want (in this example, we'll only use null-ls)
-				return client.name == "null-ls"
-			end,
-			bufnr = bufnr or vim.api.nvim_get_current_buf(),
-			-- timeout_ms = 20000,
-			async = true,
-		})
-	end
+	vim.lsp.buf.format({
+		filter = function(client)
+			-- apply whatever logic you want (in this example, we'll only use null-ls)
+			return client.name == "null-ls"
+		end,
+		bufnr = bufnr or vim.api.nvim_get_current_buf(),
+		-- timeout_ms = 20000,
+		async = true,
+	})
 end
 
 local lspKey = require("keybindingAlias").lsp
@@ -72,14 +65,19 @@ null_ls.setup({
 		-- format document before save
 		-- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save
 		if client.supports_method("textDocument/formatting") then
-			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-			vim.api.nvim_create_autocmd("BufWritePre", {
-				group = augroup,
-				buffer = bufnr,
-				callback = function()
-					lsp_formatting(bufnr)
-				end,
-			})
+			local augroup = vim.api.nvim_create_augroup("LspFormatting", { clear = false })
+			local max_filesize = commConf.autoformatEdge -- 100 KB
+			local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
+			if ok and stats and stats.size < max_filesize then
+				vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+				vim.api.nvim_create_autocmd("BufWritePre", {
+					group = augroup,
+					buffer = bufnr,
+					callback = function()
+						lsp_formatting(bufnr)
+					end,
+				})
+			end
 		end
 		vim.keymap.set("n", lspKey.definition, function()
 			require("telescope.builtin").lsp_definitions(
