@@ -10,7 +10,6 @@ git packaged reference: <https://git-annex.branchable.com/install/Linux_standalo
 how to use my lite version neovim: <https://github.com/HUAHUAI23/nvim64/blob/main/readme.md>
 
 **my neovim home**
-![neovim home](./pic/2.png)
 ![neovim home](./pic/lite.png)
 
 ## install
