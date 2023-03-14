@@ -413,7 +413,7 @@ keybind.telescope = {
 	{
 		mode = "n",
 		lhs = telesp.buffer_select,
-		rhs = [[<cmd>lua require('telescope.builtin').buffers({initial_mode = 'insert'})<CR>]],
+		rhs = [[<cmd>lua require('telescope.builtin').buffers({initial_mode = 'normal'})<CR>]],
 		description = "telescope-find buffer select",
 	},
 }
@@ -526,6 +526,18 @@ local function lsp_formatting()
 		async = true,
 	})
 end
+vim.keymap.set(
+	"n",
+	lsp.open_fix_workspace,
+	"<cmd>Trouble document_diagnostics<cr>",
+	{ noremap = true, silent = true, desc = "open loacation quickfix list current" }
+)
+vim.keymap.set(
+	"n",
+	lsp.open_fix_workspace,
+	"<cmd>Trouble workspace_diagnostics<cr>",
+	{ noremap = true, silent = true, desc = "open loacation quickfix list workspace" }
+)
 
 keybind.pluginKeys.mapLSP = function(bufnr)
 	vim.keymap.set("n", lsp.definition, function()
